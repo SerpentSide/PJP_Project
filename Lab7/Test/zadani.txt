@@ -1,0 +1,99 @@
+VARIANTA 1 — FILE + << operátor
+Zadání
+
+Rozšiřte jazyk o nový datový typ FILE a operátor << pro zápis do souboru.
+
+Syntaxe
+FILE f;
+fopen f, "test.txt";
+f << 1 << 2 << "abc";
+Požadavky
+přidat typ FILE
+přidat příkaz fopen
+přidat operátor << (řetězitelný)
+generovat instrukce pro VM
+VM instrukce
+fopen
+fappend
+Poznámka
+
+Typovou kontrolu není nutné řešit.
+
+🧠 VARIANTA 2 — FILE + fappend (bez syntaktického cukru)
+Zadání
+
+Rozšiřte jazyk o práci se soubory pomocí explicitního příkazu fappend.
+
+Syntaxe
+FILE f;
+fopen f, "test.txt";
+fappend f, 1, "A", 2;
+Požadavky
+přidat typ FILE
+implementovat fopen
+implementovat fappend s libovolným počtem parametrů
+Generování
+load f
+push I 1
+push S "A"
+push I 2
+fappend 3
+
+
+🧠 VARIANTA 3 — Ternární operátor
+Zadání
+
+Rozšiřte jazyk o ternární operátor.
+
+Syntaxe
+a = (x > 0) ? 1 : 2;
+Požadavky
+upravit gramatiku
+implementovat generování kódu pomocí skoků
+Generování
+cond
+fjmp L1
+push 1
+jmp L2
+label L1
+push 2
+label L2
+
+🧠 VARIANTA 4 — FOR cyklus
+Zadání
+
+Rozšiřte jazyk o for cyklus.
+
+Syntaxe
+for (i = 0; i < 10; i = i + 1) {
+    write i;
+}
+Požadavky
+přidat syntaxi do gramatiky
+přeložit na while
+Překlad
+i = 0;
+while (i < 10) {
+    write i;
+    i = i + 1;
+}
+
+🧠 VARIANTA 5 — charAt (práce se stringy)
+Zadání
+
+Rozšiřte jazyk o operaci přístupu ke znaku řetězce.
+
+Syntaxe
+string s;
+s = "hello";
+c = charAt(s, 1);
+Požadavky
+přidat funkci charAt
+vrací znak na dané pozici
+VM instrukce
+load s
+push I 1
+charAt
+🔥 BONUS (silnější varianta)
+změna znaku v řetězci
+s = setCharAt(s, 1, "X");
